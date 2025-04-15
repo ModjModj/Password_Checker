@@ -67,3 +67,5 @@ pass_checker(df)
 
 print("\n Similar Passwords")
 alert(df)
+
+print("\n It is reccomended that you change these passwords as soon as possible")
