@@ -3,6 +3,8 @@ import pandas as pd
 import difflib
 import re
 
+web_set= set()
+
 #import password csv file
 df = pd.read_csv('fake_websites_passwords.csv', delimiter=',')
 
@@ -21,6 +23,7 @@ def alert(df, threshold=0.8):
         for prev_pass, prev_site in seen:
             if similarity(curr_pass, prev_pass, threshold):
                 print(f"{curr_site}'s password is too similar to {prev_site}'s password")
+                web_set.add(curr_site)
                 break
         seen.append((curr_pass, curr_site))
 
@@ -61,6 +64,7 @@ def pass_checker(df):
 
         if not valid_password(curr_pass):
             print(f"{curr_site}'s password is too weak")
+            web_set.add(curr_site)
 
 print("\n Weak Passwords:")
 pass_checker(df)
@@ -68,4 +72,6 @@ pass_checker(df)
 print("\n Similar Passwords")
 alert(df)
 
-print("\n It is reccomended that you change these passwords as soon as possible")
+print("\n It is reccomended that you change these passwords for these sites as soon as possible")
+for i in web_set:
+    print(i)
